@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 
 image:
-  repository: bitnami/kubectl
+  repository: pyenv
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
@@ -51,3 +51,8 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+
+
+
+telegraf: {}

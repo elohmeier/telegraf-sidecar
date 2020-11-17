@@ -17,6 +17,10 @@ metadata:
   name: {{ include "mychart.fullname" . }}-podctrl
 rules:
 - apiGroups: [""]
-  resources: ["pods"]
-  verbs: ["get", "list", "delete"]
+  resources: ["configmaps"]
+  resourceNames: ["telegrafd"]
+  verbs: ["get", "patch"]
+- apiGroups: ["apps"]
+  resources: ["deployments/scale"]
+  verbs: ["get", "patch"]
 {{- end }}
