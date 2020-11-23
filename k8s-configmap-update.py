@@ -51,16 +51,31 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--namespace",
+        "-ns",
         help="namespace to use, will be read from local pod environment if not specified",
     )
-    parser.add_argument(
-        "--configmap", help="name of configmap to update", required=True
-    )
+    parser.add_argument("--configmap", "-cm", help="name of configmap to update")
     parser.add_argument(
         "--deployment",
+        "-dp",
         help="name of deployment whose pods will be restarted if specified",
     )
+    parser.add_argument(
+        "--show-config",
+        "-s",
+        help="only fetch the config and print it, no kubernetes connection will be established",
+        action="store_true",
+    )
     args = parser.parse_args()
+
+    if args.show_config:
+        new_config = fetch_config()
+        import pprint
+
+        pprint.pprint(new_config)
+        sys.exit(0)
+    elif args.configmap is None:
+        parser.error("--configmap/-cm must be specified")
 
     logging.basicConfig(
         level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s"
